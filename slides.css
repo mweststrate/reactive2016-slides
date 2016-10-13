@@ -1,0 +1,27 @@
+@import 'https://fonts.googleapis.com/css?family=Cormorant+Garamond';
+
+body, h1, h2, h3 {
+    font-family: 'Cormorant Garamond', serif;
+}
+
+p, li {
+    font-size: 36px;
+}
+
+.remark-slide-content {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.remark-slide-content ol, .remark-slide-content ul {
+    text-align: left;
+    margin-left: 4em;
+}
+
+.remark-slide-content pre {
+    text-align: left;
+    margin-left: -4em;
+    margin-right: -4em;
+    padding-left: 8em;
+    padding-right: 4em;
+}
