@@ -4,8 +4,51 @@ body, h1, h2, h3 {
     font-family: 'Cormorant Garamond', serif;
 }
 
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
 p, li {
-    font-size: 36px;
+    font-size: 42px;
+}
+
+p {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
+
+a, :visited {
+    text-decoration: none;
+    color: #666;
+}
+
+hr {
+    width: 30%;
+    border: 1px solid black;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.remark-code, .remark-code-line {
+    font-size: 22px;
+}
+
+.boring .remark-code {
+    background-color: white;
+    padding: 0em 8em !important;
+    opacity: 0.7;
+    margin: -0.5em 0em;
+}
+
+ul, ol {
+    text-align: left;
+    display: inline-block;
+    clear: both;
+}
+
+.appear {
+    visibility: hidden;
 }
 
 .remark-slide-content {
@@ -22,6 +65,34 @@ p, li {
     text-align: left;
     margin-left: -4em;
     margin-right: -4em;
-    padding-left: 8em;
-    padding-right: 4em;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.remark-slide-content pre > code.remark-code {
+    padding: 1em 8em;
+}
+
+.fullscreen {
+    padding: 0
+}
+
+.fullscreen p {
+    margin: 0;
+    display: block;
+    width: 100%;
+    top: 0px;
+    position: absolute;
+    bottom: 0px;
+    text-align: center;
+}
+
+.fullscreen img {
+    vertical-align: middle;
+}
+
+.stacked img {
+    top: 0px;
+    left: 0px;
+    position: absolute;
 }

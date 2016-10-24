@@ -4,17 +4,21 @@
   "description": "",
   "main": "index.js",
   "config": {
-    "build": "--output-file slides.html --style slides.css --template template.html slides.md"
+    "build": "--output-file slides.html --style slides.css --template template.html --script slides.js slides.md"
   },
   "scripts": {
     "build": "markdown-to-slides $npm_package_config_build",
-    "watch": "markdown-to-slides --watch $npm_package_config_build",
-    "start": "(servant -p 3002 &) && gnome-open http://localhost:3002/slides.html && npm run watch"
+    "watch": "gaze \"npm run build\" \"*\" \"!node_modules/**/*\" \"!slides.html\"",
+    "start": "concurrently \"servant -p 3002\" \"npm run watch\""
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "markdown-to-slides": "^1.0.3",
     "servant": "^4.4.0"
+  },
+  "devDependencies": {
+    "concurrently": "^3.1.0",
+    "gaze-cli": "^0.2.0"
   }
 }

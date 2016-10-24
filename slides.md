@@ -1,273 +1,429 @@
----
-
 # The Quest For Immer Mutable State Management
 
 Michel Weststrate - @mweststrate - ReactiveConf 2016
 
 ---
 
-## Redux or MobX?
+Developers are too smart
 
-Most Popular Independent State Containers
+.appear[(and too expensive)]
+
+.appear[to have them do stupid adminstrative tasks]
+
+.appear[that can be done way better by computers anyway]
+
+---
+
+# The Goal
+
+.appear[
+```javascript
+const person = {
+    name: "michel",
+    age: 31
+}
+```
+].appear[
+```javascript
+const App = ({ person }) => <h1>{ person.name }</h1>
+```
+].appear[
+```javascript
+ReactDOM.render(<App person={person} />, document.body)
+```
+].appear[
+```javascript
+person.name = "@mweststrate"
+```
+]
+
+---
+class: fullscreen
+
+improve image
+
+![state4.png](state4.png)
+
+---
+# Truly Reactive React
+
+.appear[
+```javascript
+autorun(() => {
+```
+]
+
+```javascript
+    view = f(state)
+```
+
+.appear[
+```javascript
+})
+```
+]
+---
+
+# The Solution: MobX
+
+.appear[
+```javascript
+const person = observable({
+    name: "michel",
+    age: 31
+})
+```
+].appear[
+```javascript
+const App = observer(({ person }) => <h1>{ person.name }</h1>)
+```
+].appear[
+```javascript
+ReactDOM.render(<App person={person} />, document.body)
+```
+
+```javascript
+person.name = "@mweststrate"
+```
+
+http://jsbin.com/wimago/edit?js,output
+]
+
+---
+class: fullscreen
+
+---
+
+![Reactive2015](reactive2015.jpg)
+
+# What happened next
+
+.appear[![stars](stars.png)]
+
+.appear[
+Second most popular state management library.
 http://stateofjs.com/2016/statemanagement
 
----
+<img src="satisfaction.png" height="300px" />
 
-## Redux or MobX?
-
-## Immutable or Mutable state?
+]
 
 ---
 
-Peace picture
+# The Reactions
+
+It's so simple and fast :)
+
+.appear[
+    <img src="diff.png" width="800px" />
+]
 
 ---
 
-# Redux
+# The Reactions
 
-> Redux is a predictable state container
-
----
-
-# Transactional State
-
-1. Immutable Snapshots
-2. Replayable Actions
+It's magic :(
 
 ---
 
-# Immutable Data
+# The Reactions
 
-Plaatje
-
-Coarse grained: "single-value-mutable-state"
+It's unopinionated :)
 
 ---
 
-# Benefits Of Redux
+# The Reactions
 
-1. Snapshots
-2. Replayable
-3. Simple to reason about
-3. Standardized Serialization
+It's unopinionated :(
+
+---
+
+# The Reactions
+
+It uses mutable data :)
+
+---
+
+# The Reactions
+
+It uses mutable data :(
+
+---
+
+# The benefit of using MobX
+
+1. Dead simple code
+5. Mimimal boilerplate, super productive
+4. Unopinionated about state structure
+5. Efficient
+7. Designed for decoupling
+6. Encourages strong typing
+
+---
+
+# The benefit of using Redux
+
+1. State snapshots
+2. Replayable actions
 2. Simple State Hydration
-4. Structural Sharing
-2. Time travelling
-4. Memoization
+3. Traceability
+4. Time travelling
 
 ---
 
-# MobX
-
-> Define State Minimally. Derive Everything.
+# Redux or MobX?
 
 ---
 
-# Example
+class: fullscreen center
 
-TODO
-
----
-
-# Observable, Mutable Data
-
-Plaatje
-
-Fine grained: Very suitable for derivations
+![peace](peace.png)
 
 ---
 
-# Benefits Of MobX
+# Redux or MobX?
 
-1. Minimally Defined State
-2. Transparent Reactive Derivations
-2. Flexible State (Graphs, classes, refs, ...)
-3. Straight forward actions
-4. Low learning curve (Think: spreadsheets)
-5. Productive
-5. Efficient OOTB
-6. Strongly typed
+.appear[
+Redux: Predictability through transactional state.
 
----
+].appear[
+MobX: Simplicity through minimally defined, automatically derivable state.
 
-# MobX or Redux?
+]
 
 ---
 
-# MobX or Redux ... or Both?
+# The Quest For
 
-Non-Conflicting Philosophies
-
-Plaatje Ven Diagram
+A minimally defined, *snapshot-able* *state container* with replayable *actions* and efficient, *transparent* reactive *derivations*
 
 ---
 
-# MobX or Redux ... or Both?
+# The Quest For
 
-The Quest For: Transactional, minimally defined *state* with replayable *actions* and efficient, transparent reactive *derivations*
+Excuses to build cool stuffz<br/>
+&nbsp;
 
 ---
-
-# Ok, it's just an excuse..
-
-Let's build something cool
-
-----
-
-# One Year Ago
-
-Foto
-
-Mobservable. With Time Travelling
 
 Demo
-
-https://github.com/mobxjs/mobx-reactive2015-demo
 
 ---
 
 # Snapshotting Observable Mutable Data
 
+.appear[
+
+.boring[
 ```javascript
 import {autorun} from "mobx"
 import store from "./store"
+```
+]
 
+```javascript
 const snapshots = []
-
 autorun(() => {
     snapshots.push(store.serializeToJs())
 })
+```
+]
+
+---
+
+# Snapshotting Observable Mutable Data
+
+.appear[
+```
+autorun(() => {
+```
+]
 
 ```
+    snapshot = serialize(state)
+```
+
+.appear[
+```
+})
+```
+]
 
 ---
 
-# Mutable Data Problems
+# Snapshotting Observable Mutable Data
 
-1. No standardized serialization (`serializr` helps)
-2. Deep cloning is expensive
-3. No structural sharing
-
----
-
-class: middle center
-
-# A Snapshot Is Just Another Derivation
+1. .appear[No standardized serialization .appear[(&ldquo;serializr&rdquo; package helps)]]
+2. .appear[Deep serializing state is expensive]
+3. .appear[No structural sharing]
 
 ---
 
-# A Snapshot Is Just Another Derivation
+# Snapshotting Observable Mutable Data
 
-```javascript
-import {observable, computed} from "mobx"
+1. .appear[Trees are easy to serialize]
+3. .appear[A snapshot is a derived value]
+2. .appear[Rendering a tree with reuse is a solved problem!]
 
-class Box {
-    id; // for react
-    @observable name = 'Box' + this.id;
-    @observable x = 0;
-    @observable y = 0;
-    @computed get width() {
-        return this.name.length * 15;
-    }
+---
 
-    @computed get json() {
-        return {
-            id: this.id
-            name: this.name,
-            x: this.x,
-            y: this.y
+# Snapshotting Observable Mutable Data
+
+.boring[
+```
+function createTodo(id, text) {
+    return observable({
+        id,
+        text,
+        completed: false,
+```
+]
+
+.appear[
+```
+        get json() {
+            return {
+                id: this.id,
+                text: this.text,
+                completed: this.completed
+            }
         }
-    }
+```
+]
+
+.boring[
+```
+    })
 }
 ```
+]
+
 ---
 
-# ... With Automatic Structural Sharing!
+# Snapshotting Observable Mutable Data
 
-```javascript
-class Store {
-    @observable boxes: [],
-    @observable arrows: [],
-    @observable selection: null
+.boring[
+```
+function createTodoStore() {
+    return observable({
+        todos: [],
+```
+]
 
-    @computed json() {
-        return {
-            boxes: this.boxes.map(box => box.json),
-            arrows: this.arrows.map(arrow => arrow.json),
-            selection: this.selection ? store.selection.id : null
+```
+        get json() {
+            return this.todos.map(
+                todo => todo.json
+            )
         }
-    }
-}
 ```
 
-(Since computed values are cached)
+.boring[
+```
+    })
+}
+```
+]
 
 ---
 
-Plaatje
+class: fullscreen stacked
+
+.appear[![snapshot](snapshot1.png)]
+.appear[![snapshot](snapshot2.png)]
+.appear[![snapshot](snapshot3.png)]
+.appear[![snapshot](snapshot4.png)]
+.appear[![snapshot](snapshot5.png)]
+.appear[![snapshot](snapshot6.png)]
 
 ---
 
 # mobx-state-tree
 
-Opinionated MobX Powered State Container
-
-* Tree Structure
-* Predefined data models
-* Built-in snapshotting
-* .. And many other things
+_opinionated, MobX powered state container_
 
 ---
 
-# duality
+# Core concepts
 
-* Snapshots are immutable and plain structures
-* Models are mutable, observable
-* Models are rich: computed values, functions
+.appear[state is a tree of models]
+
+.appear[models are mutable, observable, rich]
+
+.appear[snapshots are immutable representation of the state]
+
+.appear[snapshots & models are interchangeable]
+
+---
+
+class: fullscreen
+
+![tree](tree.png)
+
+---
+
+class: fullscreen stacked
+
+.appear[![tree](tree1.png)]
+.appear[![tree](tree2.png)]
+.appear[![tree](tree3.png)]
+.appear[![tree](tree4.png)]
 
 ---
 
 # Data Model
 
-*'cause constraints enable generic features*
+.appear[
+
+```
+const myModelFactory = createFactory({
+    /* exampleModel */
+    // properties
+    // computed values
+    // actions
+    // utilities
+})
+```
+]
+
+.appear[
+```
+snapshot => observable({...exampleModel, ...snapshot })
+```
+]
 
 ---
 
 # Data model
 
-*createFactory(exampleModel)*
-
-returns function: `(snapshot) => modelObject`
-
-conceptually: `snapshot => ({...exampleModel, ...snapshot })`
-
----
-
-# Data model
-
-```javascript
-import {createFactory} from "immer"
-
+.boring[
+```
+import {createFactory} from "mobx-state-tree"
+```
+]
+```
 const Box = createFactory({
-    id: '',
-    name: '',
+    id: -1,
+    name: "A cool box instance",
     x: 0,
     y: 0,
-    // computed value
     get width() {
         return this.name.length * 15;
     }
 })
 
-const box1 = Box({ name: "Hello, Reactive2016!" })
+const box1 = Box({ id: 17, name: "Hello, Reactive2016!" })
 ```
 ---
 
 # Data model
 
-```javascript
-import {createFactory, mapOf, arrayOf}
-
+.boring[
+```
+import {createFactory, mapOf, arrayOf} from "mobx-state-tree"
+```
+]
+```
 const Store = createFactory({
     boxes: mapOf(Box),
     arrows: arrayOf(Arrow),
@@ -277,36 +433,39 @@ const Store = createFactory({
 
 ---
 
-# Demo
+class: fullscreen
 
-<!-- Drag Boxes-->
-
----
-
-# Snapshots
-
-*without them you can't have transactional state*
+![snapshots](snapshots.png)
 
 ---
 
 # Snapshots
 
-* *getSnapshot(model): snapshot*
-
-* *applySnapshot(model, snapshot)*
-
-* assigning a *snapshot* to a property of a *model* automatically instantiates a new model: `store.arrows[0] = { id: "20", from: "127", to: "13" }`
-
+```
+    getSnapshot(model): snapshot
+```
+```
+    applySnapshot(model, snapshot)
+```
+```
+    onSnapshot(model, callback)
+```
 ---
 
 # Snapshots & Time Travel
 
-```javascript
-import store from './domain-state';
-import {getSnapshot, applySnapshot, onSnapshot} from 'mobx-state-tree';
+---
 
-var states = [];
-var currentFrame = -1;
+.boring[
+```
+import {getSnapshot, applySnapshot, onSnapshot} from 'mobx-state-tree';
+import store from './domain-state';
+```
+]
+
+```
+const states = [];
+let currentFrame = -1;
 
 onSnapshot(store, snapshot => {
     if (currentFrame === states.length -1) {
@@ -315,29 +474,24 @@ onSnapshot(store, snapshot => {
     }
 })
 
-export function previousState() {
-    if (currentFrame === 0)
-        return
-    currentFrame--;
-    applySnapshot(store, states[currentFrame])
+function previousState() {
+    if (--currentFrame >= 0)
+        applySnapshot(store, states[currentFrame])
 }
 ```
 
 ---
 
-# Demo
-
-<!-- time travel -->
-
----
-
 # Snapshots & Forms
 
-```javascript
-function clone(model) {
-    return getFactory(model)(getSnapshot(model))
-}
+.boring[
 
+```javascript
+import {getFactory, getSnapshot, applySnapshot, clone} from "mobx-state-tree"
+```
+]
+
+```javascript
 const todoEditor({todo}) =>
     <TodoEditForm
         todo={clone(todo)}
@@ -346,13 +500,23 @@ const todoEditor({todo}) =>
         }
     />
 ```
+.appear.boring[
+```javascript
+function clone(model) {
+    return getFactory(model)(getSnapshot(model))
+}
+```
+]
+
 ---
 
 # Snapshots & Testing
 
 ```javascript
 const todo = clone(exampleTodo)
+
 todo.markCompleted()
+
 assert.deepEqual(getSnapshot(todo), {
     title: "test", complted: true
 })
@@ -360,15 +524,34 @@ assert.deepEqual(getSnapshot(todo), {
 
 ---
 
+# Snapshots & Testing
+
+![jest](jest.gif)
+
+---
+
 # Snapshots & Syncing
 
+Demo
+
+---
+
+# Snapshots & Syncing
+
+.boring[
 ```javascript
 let handlingMessage = false
-onSnapshot(store, data => {
+```
+]
+
+```
+onSnapshot(store, (data) => {
     if (!handlingMessage)
         socket.send(JSON.stringify(data))
 })
-socket.onmessage = event => {
+```
+```
+socket.onmessage = (event) => {
     handlingMessage = true
     applySnapshot(store, JSON.parse(event.data))
     handlingMessage = false
@@ -377,7 +560,200 @@ socket.onmessage = event => {
 
 ---
 
+class: fullscreen
+
+![patches](patches.png)
+
+---
+
+# Patches
+
+JSON-patch rfc6902
+
+*Changes need to be broadcasted!*
+
+---
+
+# Patches
+
+```
+    onPatch(model, calback)
+```
+```
+    applyPatch(model, jsonPatch)
+```
+---
+
+class: fullscreen stacked
+
+.appear[![patch](patch1.png)]
+.appear[![patch](patch2.png)]
+.appear[![patch](patch3.png)]
+.appear[![patch](patch4.png)]
+
+---
+
+# Patches
+
+```javascript
+onPatch(store, patch => console.dir(patch))
+
+onPatch(store.box.get("0d42afa6"), patch => console.dir(patch))
+```
+
+```
+store.box.get("0d42afa6").move(5, 0)
+```
+
+```
+// output:
+
+{ op: "replace", path: "/boxes/0d42afa6/x", value: 105 }
+
+{ op: "replace", path: "/x", value: 105 }
+```
+
+---
+
+# Patches & Syncing
+
+.boring[
+```
+let handlingMessage = false
+```
+]
+
+```javascript
+onPatch(store, (data) => {
+    if (!handlingMessage)
+        socket.send(JSON.stringify(data))
+})
+```
+```
+socket.onmessage = (event) => {
+    handlingMessage = true
+    applyPatch(store, JSON.parse(event.data))
+    handlingMessage = false
+}
+```
+
+---
+
 Demo
+
+---
+
+# Actions
+
+*snapshots + replayable actions = transactional state*
+
+---
+# Actions
+
+What if an action description is the effect
+
+instead of the cause of a function call?
+
+---
+
+# Actions
+
+.boring[
+```javascript
+const Box = createFactory({
+    x: 0,
+    y: 0,
+```
+]
+```
+    move: action(function(dx, dy) {
+        this.x += dx
+        this.y += dy
+    })
+```
+.boring[
+```
+})
+```
+]
+```
+box1.move(10, 10)
+```
+
+---
+
+# Actions
+
+```
+    action(fn)
+```
+```
+    onAction(model, callback)
+```
+```
+    applyAction(model, actionCall)
+```
+
+---
+
+# Actions & Middleware
+
+```javascript
+onAction(store, (action, next) => {
+    console.dir(action)
+    return next()
+})
+
+store.get("ce9131ee").move(23, -8)
+```
+
+```
+// prints:
+{
+    "name":"move",
+    "path":"/boxes/ce9131ee",
+    "args":[23,-8]
+}
+```
+
+---
+
+# Actions & Syncing
+
+.boring[
+```javascript
+let handlingMessage = false
+```
+]
+
+```
+onAction(store, (data, next) => {
+    next()
+    if (!handlingMessage)
+        socket.send(JSON.stringify(data))
+})
+```
+```
+socket.onmessage = (event) => {
+    handlingMessage = true
+    applyAction(store, JSON.parse(event.data))
+    handlingMessage = false
+}
+```
+---
+# Actions
+
+* Based on MobX actions
+* Unlock part of the state tree for editing
+* Emit action events, apply middleware
+* Straight forward
+* Bound
+---
+
+
+class: fullscreen
+
+![references.png](references.png)
 
 ---
 
@@ -390,33 +766,56 @@ Demo
 # References
 
 ```javascript
-store.selection = store.boxes.get("abc123")
-// Throws: already part of a state tree
+const myFavoriteBox = store.boxes.get("abc123")
 
+store.selection = myFavoriteBox
 ```
+
+.appear[
+```
+//  Throws: element is already part of a state tree
+```
+]
+
+.appear[
+```
+store.selection = myFavoriteBox.id
+```
+]
 
 ---
 
 # References
 
+.boring[
 ```javascript
 const Store = createFactory({
     boxes: mapOf(Box),
-    arrows: arrayOf(Arrow),
+```
+]
+
+```
     selectionId: '',
+
     get selection() {
         return this.selectionId ? this.boxes.get(this.selectionId) : null
     },
     set selection(value) {
         this.selectionId = value ? value.id : null
-    },
+    }
+```
+
+.boring[
+```
 })
 
 autorun(() => {
     console.log(store.selection.name)
 })
-```
 
+store.selection = myFavoriteBox
+```
+]
 ---
 
 # References
@@ -424,265 +823,103 @@ autorun(() => {
 ```javascript
 const Store = createFactory({
     boxes: mapOf(Box),
-    arrows: arrayOf(Arrow),
-    selection: referenceTo("/boxes/id"),
-})
-
-
-autorun(() => {
-    console.log(store.selection.name)
+    selection: referenceTo("/boxes/id")
 })
 ```
 
 ---
 
-# Patches
+# mobx-state-tree
 
-JSON-patch rfc6902
+A minimally defined,
 
-*Changes need to be distributed*
+*snapshot-able*
+.appear[![check](check.jpg)]
+
+*state container*
+.appear[![check](check.jpg)]
+
+with replayable *actions*
+.appear[![check](check.jpg)]
+
+and efficient, *transparent* reactive *derivations*
+.appear[![check](check.jpg)]
+
+.appear[_ ..+ patches, middleware, references, dependency injection.._]
 
 ---
 
-# Patches
-
-* observes fine grained changes in data
-* *onPatch(model, calback: jsonPatch => void)*
-* *applyPatch(model, jsonPatch)*
+Demo
 
 ---
 
-# Patches
-
+.boring[
 ```javascript
-onPatch(box, patch => console.dir(patch))
-onPatch(store, patch => console.dir(patch))
-
-// output of moving a box:
-{ op: "replace", path: "/x", value: 105 }
-
-{ op: "replace", path: "/boxes/0d42afa6/x", value: 105 }
-```
-
----
-
-# Patches & Syncing
-
-```javascript
-let handlingMessage = false
-onPatch(store, data => {
-    if (!handlingMessage)
-        socket.send(JSON.stringify(data))
-})
-socket.onmessage = event => {
-    handlingMessage = true
-    applyPatch(store, JSON.parse(event.data))
-    handlingMessage = false
-}
-```
-
----
-
-# Demo
-
----
-
-# Actions
-
-*snapshots + replayable actions = transactional state*
-
----
-
-# Actions
-
-What if a action call is the effect and not the cause?
-
----
-
-# Actions
-
-* Based on MobX actions
-* Unlock part of the state tree for editing
-* Emit action event, applies middleware
-* Run's mutation based action
-
----
-
-
-# Actions
-
-```javascript
-const Box = createFactory({
-    x: 0,
-    y: 0,
-    move: action(function(dx, dy) {
-        this.x += dx
-        this.y += dy
-    })
-})
-
-box1.move(10, 10)
-```
-
----
-
-# Actions
-
-```javascript
-const Store = createFactory({
-    arrows: arrayOf(Arrow),
-    addArrow: action(function(fromId, toId) {
-        this.arrows.push(Arrow({ id: randomUuid(), fromId, toId }))
-    }),
-})
-```
-
----
-
-# Actions
-
-* *action(fn)* user actions that modify part of the state tree
-* *onAction(model, callback: actionCall => void)*
-* *applyAction(model, actionCall)*
-
----
-
-# onAction
-
-```javascript
-onAction(store, (action, next) => {
-    console.dir(action)
-    return next()
-})
-
-box.move(23, -8)
-
-// prints:
-{
-    "name":"move",
-    "path":"/boxes/ce9131ee-f528-4952-a012-543780c5e66d",
-    "args":[23,-8]
-}
-```
-
----
-
-# Actions & Syncing
-
-```javascript
-let handlingMessage = false
-onAction(store, (data, next) => {
-    next()
-    if (!handlingMessage)
-        socket.send(JSON.stringify(data))
-})
-socket.onmessage = event => {
-    handlingMessage = true
-    applyAction(store, JSON.parse(event.data))
-    handlingMessage = false
-}
-```
----
-
----
-
-# Testing Actions
-
-Jest
-
-# Demo
-
----
-
-# Integrates with MobX
-
-```javascript
-import React, {Component} from 'react';
-import {observer} from 'mobx-react';
-
-const ArrowView = ({arrow}) => {
-    const {from, to} = arrow
-    if (!from || !to) return null
-    const [x1, y1, x2, y2] = [
-        from.x + from.width / 2,
-        // .. more math
-    ]
-    return <path className="arrow"
-        d={`M${x1} ${y1} L${x2} ${y2}`}
-    />
-}
-
-export default observer(ArrowView)
-```
-
----
-
-# Summarizing mobx-state-tree
-
-Table:
-
-* Observable, mutable tree of models. Actions, computed values, etc.
-* Snapshots `getSnapshot`, `onSnapshot` and `applySnapshot`
-* Patches `onPatch`, `applyPatch`
-* Actions `onAction`, `applyAction`, middleware
-
-
----
-
-Demo #1
-<!-- todomvc, redux -->
-
----
-
-# A state tree is a Redux store!
-
-(almost)
-
-```javascript
-import { ADD_TODO, DELETE_TODO, EDIT_TODO, COMPLETE_TODO, COMPLETE_ALL, CLEAR_COMPLETED } from '../constants/ActionTypes'
+import { COMPLETE_ALL } from '../constants/ActionTypes'
 import { action } from 'mobx'
 import { createFactory, arrayOf } from 'mobx-state-tree'
+```
+]
 
-export const todoFactory = createFactory({
+```
+const todoFactory = createFactory({
     text: '', completed: false, id: 0
 })
 
-export default createFactory({
+const storeFactory = createFactory({
   todos: arrayOf(todoFactory),
+
   [COMPLETE_ALL]: action(function () {
     const areAllMarked = this.todos.every(todo => todo.completed)
     this.todos.forEach(todo => todo.completed = !areAllMarked)
   })
 })
 ```
+
 ---
 
-# A state tree is a Redux store!
-
-```javascript
+.boring[
+```
 import { Provider } from 'react-redux'
-import App from './containers/App'
 import todosFactory from './models/todos'
-import { asReduxStore } from 'mobx-state-tree'
+import { asReduxStore, connectReduxDevtools } from 'mobx-state-tree'
 
-const initialState = { ... }
-const todos = todosFactory(initialState)
-const store = asReduxStore(todos)
+const initialState = {
+    todos: [{
+        text: 'learn mobx-state-tree',
+        completed: false,
+        id: 0
+    }]
+}
+```
+]
 
+```
+const store = storeFactory(initialState)
+const reduxStore = asReduxStore(store)
+connectReduxDevtools(store)
+```
+
+.boring[
+```
 render(
-  <Provider store={store}>
+  <Provider store={reduxStore}>
     <App />
   </Provider>,
   document.getElementById('root')
 )
-
 ```
+]
 
 ---
 
+.boring[
 ```javascript
-import {onSnapshot, getSnapshot, applyAction} from "../index"
+import {onSnapshot, getSnapshot, applyAction} from "mobx-state-tree"
+```
+]
 
+```
 export function asReduxStore(model, ...middlewares) {
     return {
         getState : ()       => getSnapshot(model),
@@ -694,34 +931,17 @@ export function asReduxStore(model, ...middlewares) {
 }
 
 ```
----
-
-Demo: todo redux devtools in todomvc
-
----
-* `connectReduxDevtools(model)`
----
-
-Demo time travel in boxes app
 
 ---
 
-# Conclusion
+# mobx-state-tree
 
-Comparisin table
+Opinionated, transactional state MobX based state container
 
-Not covered:
-* middleware
-* dependency injection
+----
 
----
+.appear[Try mobx-state-tree]
 
-# Conclusion
+.appear[.. or just apply the patterns]
 
-For whom / when
-
-# Conclusion
-
-* the simplicity of mutable state, the traceability of immutable state, the transparent reactivity of MobX
-* Learn MobX: https://egghead.io/courses/mobx-fundamentals
-* Try mobx-state-tree: https://github.com/mweststrate/mobx-state-tree
+.appear[https://egghead.io/courses/mobx-fundamentals]
