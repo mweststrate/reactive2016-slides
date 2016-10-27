@@ -1,7 +1,13 @@
 @import 'https://fonts.googleapis.com/css?family=Cormorant+Garamond';
+@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300');
 
-body, h1, h2, h3 {
+h1, h2, h3 {
     font-family: 'Cormorant Garamond', serif;
+    letter-spacing: 4px;
+}
+
+body {
+    font-family: 'Open Sans Condensed', sans-serif;
 }
 
 h1 {
@@ -11,7 +17,6 @@ h1 {
     text-align: center;
     width: calc(1280px - 4em);
     border-bottom: 1px solid #ddd;
-    letter-spacing: 2px;
 }
 
 p, li, div {
