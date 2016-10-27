@@ -1,8 +1,7 @@
-## The Quest For Immer Mutable State Management
+# The Quest For Immer Mutable State Management
 
 Michel Weststrate - @mweststrate - ReactiveConf 2016
 
-MobX - Mendix
 ---
 
 Developers are too smart
@@ -15,15 +14,7 @@ Developers are too smart
 
 ---
 
-.appear[Manual releases &rarr; Continues Deployment]
-
-.appear[Manipulating the DOM &rarr; Components + VDOM]
-
-.appear[Managing data flow &rarr; Transparent Reactive Programming]
-
----
-
-# The Goal Of MobX
+# The Goal
 
 .appear[
 ```javascript
@@ -47,8 +38,33 @@ person.name = "@mweststrate"
 ]
 
 ---
+class: fullscreen
 
-# The Goal Of MobX
+improve image
+
+![state4.png](state4.png)
+
+---
+# Truly Reactive React
+
+.appear[
+```javascript
+autorun(() => {
+```
+]
+
+```javascript
+    view = f(state)
+```
+
+.appear[
+```javascript
+})
+```
+]
+---
+
+# The Solution: MobX
 
 .appear[
 ```javascript
@@ -70,49 +86,26 @@ ReactDOM.render(<App person={person} />, document.body)
 person.name = "@mweststrate"
 ```
 
+http://jsbin.com/wimago/edit?js,output
 ]
 
 ---
-
-# Truly Reactive React
-
-The view is a function of the state
-
-```
-    view = f(state)
-```
+class: fullscreen
 
 ---
 
-# Truly Reactive React
+![Reactive2015](reactive2015.jpg)
 
-The view is a transformation of the state
+# What happened next
 
-```
-    view = f(state)
-```
-
----
-
-
-# Truly Reactive React
-
-The view is a *live* transformation of the state
-
-```
-mobx.autorun(() => {
-    view = f(state)
-})
-```
-
----
-
-
-# What Happened Next
+.appear[![stars](stars.png)]
 
 .appear[
 Second most popular state management library.
 http://stateofjs.com/2016/statemanagement
+
+<img src="satisfaction.png" height="300px" />
+
 ]
 
 ---
@@ -121,7 +114,9 @@ http://stateofjs.com/2016/statemanagement
 
 It's so simple and fast :)
 
-<img src="diff.png" width="800px" />
+.appear[
+    <img src="diff.png" width="800px" />
+]
 
 ---
 
@@ -155,81 +150,59 @@ It uses mutable data :(
 
 ---
 
-## Immutable or Mutable _Data_?
+# The benefit of using MobX
+
+1. Dead simple code
+5. Mimimal boilerplate, super productive
+4. Unopinionated about state structure
+5. Efficient
+7. Designed for decoupling
+6. Encourages strong typing
 
 ---
 
-## Redux or MobX?
+# The benefit of using Redux
+
+1. State snapshots
+2. Replayable actions
+2. Simple State Hydration
+3. Traceability
+4. Time travelling
 
 ---
 
-.background[
-    ![frozen](frozen/Frozen.jpg)
-]
+# Redux or MobX?
 
 ---
 
-# Immutable Data
+class: fullscreen center
 
-.lighten.background[
-    ![frozen](frozen/Elsa-Snow-Queen-In-Frozen.jpg)
-]
-
-<ol style="clear:none; position: relative; left: 200px; width:400px;">
-<li>State snapshots</li>
-<li>Replayable actions</li>
-<li>State hydration</li>
-<li>Traceability</li>
-<li>Time travelling</li>
-</ol>
+![peace](peace.png)
 
 ---
 
-# Observable, Mutable Data
-
-.lighten.background[
-    ![frozen](frozen/Frozen-Movie-Anna-HD-Wallpaper1.jpg)
-]
-
-<ol style="clear:none; position: relative; left: -140px; width: 800px;">
-<li>Complex, coupled domains</li>
-<li>Complex calculations</li>
-<li>Mimimal boilerplate</li>
-<li>Efficient</li>
-<li>Unopinionated</li>
-<li>Encourages strong typing</li>
-</ol>
-
----
-
-The relevance of each benefit is different in each project.
+# Redux or MobX?
 
 .appear[
-What are the driving principles?
-]
+Redux: Predictability through transactional state.
 
----
+].appear[
+MobX: Simplicity through minimally defined, automatically derivable state.
 
-.appear[
-_Redux_<br/>Predictability through transactional state
-]
-
-.appear[
-<br/>
-_MobX_<br/>Simplicity through minimally defined,<br/>automatically derived state
 ]
 
 ---
 
 # The Quest For
 
-A minimally defined, *snapshot-able* *state container* with replayable, KISS *actions* and efficient, *transparent* reactive *derivations*
+A minimally defined, *snapshot-able* *state container* with replayable *actions* and efficient, *transparent* reactive *derivations*
 
 ---
 
-class: fullscreen
+# The Quest For
 
-![frozen](frozen/061913_inspiration-for-frozen-disney-animation-6_0.jpg)
+Excuses to build cool stuffz<br/>
+&nbsp;
 
 ---
 
@@ -239,11 +212,27 @@ Demo
 
 # Snapshotting Observable Mutable Data
 
+.appear[
+
 .boring[
-```
-const states = []
+```javascript
+import {autorun} from "mobx"
+import store from "./store"
 ```
 ]
+
+```javascript
+const snapshots = []
+autorun(() => {
+    snapshots.push(store.serializeToJs())
+})
+```
+]
+
+---
+
+# Snapshotting Observable Mutable Data
+
 .appear[
 ```
 autorun(() => {
@@ -252,7 +241,6 @@ autorun(() => {
 
 ```
     snapshot = serialize(state)
-    states.push(snapshot)
 ```
 
 .appear[
@@ -263,7 +251,7 @@ autorun(() => {
 
 ---
 
-# Snapshot Problems
+# Snapshotting Observable Mutable Data
 
 1. .appear[No standardized serialization .appear[(&ldquo;serializr&rdquo; package helps)]]
 2. .appear[Deep serializing state is expensive]
@@ -271,67 +259,11 @@ autorun(() => {
 
 ---
 
-# Solutions
+# Snapshotting Observable Mutable Data
 
 1. .appear[Trees are easy to serialize]
 3. .appear[A snapshot is a derived value]
-2. .appear[Rendering a tree with structural sharing? <br/>Solved problem]
-
----
-
-## MobX computed values
-
----
-```
-class Person {
-    firstName = "Michel"
-    lastName = "Weststrate"
-
-    get fullName() {
-        console.log("calculating!")
-        return [this.firstName, this.lastName]
-    }
-}
-```
-
----
-
-```
-person.firstName = "John"
-
-console.log(person.fullName)
-// calculating!
-
-console.log(person.fullName)
-// calculating!
-```
-
-<small>_Pull Based: Recompute every time value is needed_</small>
-
----
-
-```
-class Person {
-    @observable firstName = "Michel"
-    @observable lastName = "Weststrate"
-
-    @computed get fullName() {
-        console.log("calculating!")
-        return [this.firstName, this.lastName]
-    }
-}
-```
----
-```
-person.firstName = "John"
-// calculating!
-
-console.log(person.fullName)
-
-console.log(person.fullName)
-```
-
-<small>_Push Based: Recompute when a source value changes_</small>
+2. .appear[Rendering a tree with reuse is a solved problem!]
 
 ---
 
@@ -339,27 +271,29 @@ console.log(person.fullName)
 
 .boring[
 ```
-class Todo {
-    @observable id = 0
-    @observable text = ""
-    @observable completed = false
+function createTodo(id, text) {
+    return observable({
+        id,
+        text,
+        completed: false,
 ```
 ]
 
 .appear[
 ```
-    @computed get json() {
-        return {
-            id: this.id,
-            text: this.text,
-            completed: this.completed
+        get json() {
+            return {
+                id: this.id,
+                text: this.text,
+                completed: this.completed
+            }
         }
-    }
 ```
 ]
 
 .boring[
 ```
+    })
 }
 ```
 ]
@@ -370,21 +304,23 @@ class Todo {
 
 .boring[
 ```
-class TodoStore {
-    @observable todos = []
+function createTodoStore() {
+    return observable({
+        todos: [],
 ```
 ]
 
 ```
-    @computed json() {
-        return this.todos.map(
-            todo => todo.json
-        )
-    }
+        get json() {
+            return this.todos.map(
+                todo => todo.json
+            )
+        }
 ```
 
 .boring[
 ```
+    })
 }
 ```
 ]
@@ -406,17 +342,15 @@ class: fullscreen stacked
 
 _opinionated, MobX powered state container_
 
-https://github.com/mobxjs/mobx-state-tree
-
 ---
 
-# Core Concepts
+# Core concepts
 
 .appear[state is a tree of models]
 
 .appear[models are mutable, observable, rich]
 
-.appear[snapshot: immutable representation of the state of a model]
+.appear[snapshots are immutable representation of the state]
 
 .appear[snapshots & models are interchangeable]
 
@@ -424,7 +358,7 @@ https://github.com/mobxjs/mobx-state-tree
 
 class: fullscreen
 
-![tree](frozen/trees.jpg)
+![tree](tree.png)
 
 ---
 
@@ -437,58 +371,52 @@ class: fullscreen stacked
 
 ---
 
-# Factories
+# Data Model
 
 .appear[
 
 ```
 const myModelFactory = createFactory({
     /* exampleModel */
-
     // properties
     // computed values
     // actions
+    // utilities
 })
 ```
 ]
 
 .appear[
 ```
-// returns fn:
 snapshot => observable({...exampleModel, ...snapshot })
 ```
 ]
 
 ---
 
-# Factories
+# Data model
 
 .boring[
 ```
 import {createFactory} from "mobx-state-tree"
 ```
 ]
-
-```javascript
+```
 const Box = createFactory({
+    id: -1,
     name: "A cool box instance",
     x: 0,
     y: 0,
-
     get width() {
         return this.name.length * 15;
     }
 })
-```
 
-.appear[
+const box1 = Box({ id: 17, name: "Hello, Reactive2016!" })
 ```
-const box1 = Box({ name: "Hello, Reactive2016!" })
-```
-]
 ---
 
-# Factories
+# Data model
 
 .boring[
 ```
@@ -505,13 +433,9 @@ const Store = createFactory({
 
 ---
 
-.lighten.background[
-    <img src="frozen/frozen-3-5.jpg" alt="snapshots" style="max-width: 130%;">
-]
+class: fullscreen
 
-# Snapshots
-
-Representation of the state of a model<br/> at a particular moment in time
+![snapshots](snapshots.png)
 
 ---
 
@@ -528,7 +452,16 @@ Representation of the state of a model<br/> at a particular moment in time
 ```
 ---
 
-# Time Travelling
+# Snapshots & Time Travel
+
+---
+
+.boring[
+```
+import {getSnapshot, applySnapshot, onSnapshot} from 'mobx-state-tree';
+import store from './domain-state';
+```
+]
 
 ```
 const states = [];
@@ -551,19 +484,23 @@ function previousState() {
 
 # Snapshots & Forms
 
+.boring[
+
 ```javascript
-const todoEditor({todo}) => (
+import {getFactory, getSnapshot, applySnapshot, clone} from "mobx-state-tree"
+```
+]
+
+```javascript
+const todoEditor({todo}) =>
     <TodoEditForm
         todo={clone(todo)}
         onSubmit={
-            (modifiedTodo) => {
-                applySnapshot(todo, getSnapshot(modifiedTodo))
-            }
+            modifiedTodo => applySnapshot(todo, getSnapshot(modifiedTodo))
         }
     />
-)
 ```
-.appear[
+.appear.boring[
 ```javascript
 function clone(model) {
     return getFactory(model)(getSnapshot(model))
@@ -573,7 +510,6 @@ function clone(model) {
 
 ---
 
-
 # Snapshots & Testing
 
 ```javascript
@@ -582,21 +518,19 @@ const todo = clone(exampleTodo)
 todo.markCompleted()
 
 assert.deepEqual(getSnapshot(todo), {
-    title: "test", completed: true
+    title: "test", complted: true
 })
 ```
 
 ---
 
-# Snapshots & Jest
+# Snapshots & Testing
 
 ![jest](jest.gif)
 
-```
-expect(getSnapshot(todo)).toMatchSnapshot()
-```
-
 ---
+
+# Snapshots & Syncing
 
 Demo
 
@@ -604,21 +538,33 @@ Demo
 
 # Snapshots & Syncing
 
+.boring[
+```javascript
+let handlingMessage = false
+```
+]
+
 ```
 onSnapshot(store, (data) => {
-    socketSend(data)
+    if (!handlingMessage)
+        socket.send(JSON.stringify(data))
 })
-
-onSocketMessage((data) => {
-    applySnapshot(store, data)
-})
+```
+```
+socket.onmessage = (event) => {
+    handlingMessage = true
+    applySnapshot(store, JSON.parse(event.data))
+    handlingMessage = false
+}
 ```
 
 ---
 
-.lighten.background[
-    ![frozne](frozen/patches.jpg)
-]
+class: fullscreen
+
+![patches](patches.png)
+
+---
 
 # Patches
 
@@ -638,46 +584,6 @@ JSON-patch rfc6902
 ```
 ---
 
-Demo
-
----
-
-# Patches & Syncing
-
-```
-onPatch(store, (data) => {
-    socketSend(data)
-})
-
-onSocketMessage((data) => {
-    applyPatch(store, data)
-})
-```
----
-
-# Patches
-
-```javascript
-onPatch(store, patch => console.dir(patch))
-
-onPatch(store.box.get("0d42afa6"), patch => console.dir(patch))
-```
-.appear[
-```
-store.box.get("0d42afa6").move(5, 0)
-```
-]
-.appear[
-```
-// output:
-
-{ op: "replace", path: "/boxes/0d42afa6/x", value: 105 }
-
-{ op: "replace", path: "/x", value: 105 }
-```
-]
----
-
 class: fullscreen stacked
 
 .appear[![patch](patch1.png)]
@@ -687,17 +593,64 @@ class: fullscreen stacked
 
 ---
 
-.lighten.background[
-    ![frozne](frozen/Disney-Frozen-Movie-kristoff-and-sven-wallpaper.jpg)
+# Patches
+
+```javascript
+onPatch(store, patch => console.dir(patch))
+
+onPatch(store.box.get("0d42afa6"), patch => console.dir(patch))
+```
+
+```
+store.box.get("0d42afa6").move(5, 0)
+```
+
+```
+// output:
+
+{ op: "replace", path: "/boxes/0d42afa6/x", value: 105 }
+
+{ op: "replace", path: "/x", value: 105 }
+```
+
+---
+
+# Patches & Syncing
+
+.boring[
+```
+let handlingMessage = false
+```
 ]
+
+```javascript
+onPatch(store, (data) => {
+    if (!handlingMessage)
+        socket.send(JSON.stringify(data))
+})
+```
+```
+socket.onmessage = (event) => {
+    handlingMessage = true
+    applyPatch(store, JSON.parse(event.data))
+    handlingMessage = false
+}
+```
+
+---
+
+Demo
+
+---
 
 # Actions
 
 *snapshots + replayable actions = transactional state*
 
 ---
+# Actions
 
-What if an action description is the effect,
+What if an action description is the effect
 
 instead of the cause of a function call?
 
@@ -712,28 +665,28 @@ const Box = createFactory({
     y: 0,
 ```
 ]
-
 ```
     move: action(function(dx, dy) {
         this.x += dx
         this.y += dy
     })
 ```
-
 .boring[
 ```
 })
 ```
 ]
-.appear[
 ```
 box1.move(10, 10)
 ```
-]
+
 ---
 
 # Actions
 
+```
+    action(fn)
+```
 ```
     onAction(model, callback)
 ```
@@ -754,7 +707,6 @@ onAction(store, (action, next) => {
 store.get("ce9131ee").move(23, -8)
 ```
 
-.appear[
 ```
 // prints:
 {
@@ -763,23 +715,31 @@ store.get("ce9131ee").move(23, -8)
     "args":[23,-8]
 }
 ```
-]
+
 ---
 
 # Actions & Syncing
 
+.boring[
+```javascript
+let handlingMessage = false
+```
+]
+
 ```
 onAction(store, (data, next) => {
-    const res = next()
-    socketSend(data)
-    return res
-})
-
-onSocketMessage((data) => {
-    applyAction(store, data)
+    next()
+    if (!handlingMessage)
+        socket.send(JSON.stringify(data))
 })
 ```
-
+```
+socket.onmessage = (event) => {
+    handlingMessage = true
+    applyAction(store, JSON.parse(event.data))
+    handlingMessage = false
+}
+```
 ---
 # Actions
 
@@ -790,11 +750,16 @@ onSocketMessage((data) => {
 * Bound
 ---
 
-.lighten.background[
-    <img src="frozen/frozen3.png" style="max-width:none"/>
-]
 
-## References
+class: fullscreen
+
+![references.png](references.png)
+
+---
+
+# References
+
+*Because my mental picture of the world ain't normalized*
 
 ---
 
@@ -862,14 +827,6 @@ const Store = createFactory({
 })
 ```
 
-.appear[
-```javascript
-const myFavoriteBox = store.boxes.get("abc123")
-
-store.selection = myFavoriteBox
-```
-]
-
 ---
 
 # mobx-state-tree
@@ -892,48 +849,41 @@ and efficient, *transparent* reactive *derivations*
 
 ---
 
-.background[
-    ![frozen](frozen/image_a492ba07.png)
-]
-
----
-
 Demo
 
 ---
 
-redux actions
-
-redux dispatching
-
-redux provider & connect
-
-redux devtools
-
-.appear[
-
-<span style="text-decoration:line-through">redux store</span>
-
-<span style="text-decoration:line-through">redux reducers</span>
+.boring[
+```javascript
+import { COMPLETE_ALL } from '../constants/ActionTypes'
+import { action } from 'mobx'
+import { createFactory, arrayOf } from 'mobx-state-tree'
+```
 ]
-.appear[
 
-mobx-state-tree factories
+```
+const todoFactory = createFactory({
+    text: '', completed: false, id: 0
+})
 
-mobx-state-tree actions
+const storeFactory = createFactory({
+  todos: arrayOf(todoFactory),
 
-]
----
-
-
-.background[
-    <img src="frozen/789efe3729df42857ca3fb477fad6626.jpg" style="max-width: 110%" />
-]
+  [COMPLETE_ALL]: action(function () {
+    const areAllMarked = this.todos.every(todo => todo.completed)
+    this.todos.forEach(todo => todo.completed = !areAllMarked)
+  })
+})
+```
 
 ---
 
 .boring[
 ```
+import { Provider } from 'react-redux'
+import todosFactory from './models/todos'
+import { asReduxStore, connectReduxDevtools } from 'mobx-state-tree'
+
 const initialState = {
     todos: [{
         text: 'learn mobx-state-tree',
@@ -945,7 +895,7 @@ const initialState = {
 ]
 
 ```
-const store = BoxesStore(initialState)
+const store = storeFactory(initialState)
 const reduxStore = asReduxStore(store)
 connectReduxDevtools(store)
 ```
@@ -963,8 +913,14 @@ render(
 
 ---
 
+.boring[
+```javascript
+import {onSnapshot, getSnapshot, applyAction} from "mobx-state-tree"
 ```
-function asReduxStore(model) {
+]
+
+```
+export function asReduxStore(model, ...middlewares) {
     return {
         getState : ()       => getSnapshot(model),
         dispatch : action   => {
@@ -978,18 +934,9 @@ function asReduxStore(model) {
 
 ---
 
-Demo
-
----
-
-
-.lighten.background[
-    ![frozen](frozen/wpid-elsa-and-anna-frozen-25421-1920x1080.jpg)
-]
-
 # mobx-state-tree
 
-Opinionated, transactional, MobX based state container
+Opinionated, transactional state MobX based state container
 
 ----
 

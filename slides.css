@@ -4,18 +4,31 @@ body, h1, h2, h3 {
     font-family: 'Cormorant Garamond', serif;
 }
 
-img {
-    max-width: 100%;
-    max-height: 100%;
+h1 {
+    position: absolute;
+    top: 10px;
+    display: block;
+    text-align: center;
+    width: calc(1280px - 4em);
+    border-bottom: 1px solid #ddd;
+    letter-spacing: 2px;
 }
 
-p, li {
+p, li, div {
     font-size: 42px;
 }
 
 p {
     margin-top: 0.5em;
     margin-bottom: 0.5em;
+}
+
+small {
+    font-size: 28px;
+}
+
+.remark-slide-number {
+    font-size: 20px;
 }
 
 a, :visited {
@@ -38,7 +51,11 @@ hr {
     background-color: white;
     padding: 0em 8em !important;
     opacity: 0.7;
-    margin: -0.5em 0em;
+}
+
+.remark-slide-content pre {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
 }
 
 ul, ol {
@@ -69,8 +86,14 @@ ul, ol {
     padding-right: 0;
 }
 
-.remark-slide-content pre > code.remark-code {
-    padding: 1em 8em;
+.remark-slide-content pre  code.remark-code {
+    padding: 0.5em 8em;
+}
+
+.remark-slide-content .appeared pre code,
+.remark-slide-content .boring pre code
+{
+    margin-left: 4em;
 }
 
 .fullscreen {
@@ -88,11 +111,34 @@ ul, ol {
 }
 
 .fullscreen img {
+    top: 0px;
+    left: 0px;
     vertical-align: middle;
+    height: 681px;
+    position: absolute;
 }
 
 .stacked img {
     top: 0px;
     left: 0px;
     position: absolute;
+}
+
+div.background {
+    top: 0px;
+    left: 0px;
+    position: absolute;
+    width: 1210px;
+    height: 681px;
+    opacity: 0.99;
+    vertical-align: middle;
+    text-align: center;
+}
+
+div.background img {
+    max-width: 100%;
+}
+
+div.lighten {
+    opacity: 0.3 !important;
 }
