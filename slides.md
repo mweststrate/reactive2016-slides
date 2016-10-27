@@ -121,7 +121,7 @@ http://stateofjs.com/2016/statemanagement
 
 It's so simple and fast :)
 
-<img src="diff.png" width="800px" />
+<img src="img/diff.png" width="800px" />
 
 ---
 
@@ -164,7 +164,7 @@ It uses mutable data :(
 ---
 
 .background[
-    ![frozen](frozen/Frozen.jpg)
+    ![frozen](img/frozen/Frozen.jpg)
 ]
 
 ---
@@ -172,7 +172,7 @@ It uses mutable data :(
 # Immutable Data
 
 .lighten.background[
-    ![frozen](frozen/Elsa-Snow-Queen-In-Frozen.jpg)
+    ![frozen](img/frozen/Elsa-Snow-Queen-In-Frozen.jpg)
 ]
 
 <ol style="clear:none; position: relative; left: 200px; width:400px;">
@@ -188,7 +188,7 @@ It uses mutable data :(
 # Observable, Mutable Data
 
 .lighten.background[
-    ![frozen](frozen/Frozen-Movie-Anna-HD-Wallpaper1.jpg)
+    ![frozen](img/frozen/Frozen-Movie-Anna-HD-Wallpaper1.jpg)
 ]
 
 <ol style="clear:none; position: relative; left: -140px; width: 800px;">
@@ -229,7 +229,7 @@ A minimally defined, *snapshot-able* *state container* with replayable, KISS *ac
 
 class: fullscreen
 
-![frozen](frozen/061913_inspiration-for-frozen-disney-animation-6_0.jpg)
+![frozen](img/frozen/061913_inspiration-for-frozen-disney-animation-6_0.jpg)
 
 ---
 
@@ -393,12 +393,12 @@ class TodoStore {
 
 class: fullscreen stacked
 
-.appear[![snapshot](snapshot1.png)]
-.appear[![snapshot](snapshot2.png)]
-.appear[![snapshot](snapshot3.png)]
-.appear[![snapshot](snapshot4.png)]
-.appear[![snapshot](snapshot5.png)]
-.appear[![snapshot](snapshot6.png)]
+.appear[![snapshot](img/snapshot1.png)]
+.appear[![snapshot](img/snapshot2.png)]
+.appear[![snapshot](img/snapshot3.png)]
+.appear[![snapshot](img/snapshot4.png)]
+.appear[![snapshot](img/snapshot5.png)]
+.appear[![snapshot](img/snapshot6.png)]
 
 ---
 
@@ -424,16 +424,16 @@ https://github.com/mobxjs/mobx-state-tree
 
 class: fullscreen
 
-![tree](frozen/trees.jpg)
+![tree](img/frozen/trees.jpg)
 
 ---
 
 class: fullscreen stacked
 
-.appear[![tree](tree1.png)]
-.appear[![tree](tree2.png)]
-.appear[![tree](tree3.png)]
-.appear[![tree](tree4.png)]
+.appear[![tree](img/tree1.png)]
+.appear[![tree](img/tree2.png)]
+.appear[![tree](img/tree3.png)]
+.appear[![tree](img/tree4.png)]
 
 ---
 
@@ -506,7 +506,7 @@ const Store = createFactory({
 ---
 
 .lighten.background[
-    <img src="frozen/frozen-3-5.jpg" alt="snapshots" style="max-width: 130%;">
+    <img src="img/frozen/frozen-3-5.jpg" alt="snapshots" style="max-width: 130%;">
 ]
 
 # Snapshots
@@ -590,7 +590,7 @@ assert.deepEqual(getSnapshot(todo), {
 
 # Snapshots & Jest
 
-![jest](jest.gif)
+![jest](img/jest.gif)
 
 ```
 expect(getSnapshot(todo)).toMatchSnapshot()
@@ -617,7 +617,7 @@ onSocketMessage((data) => {
 ---
 
 .lighten.background[
-    ![frozne](frozen/patches.jpg)
+    ![frozne](img/frozen/patches.jpg)
 ]
 
 # Patches
@@ -680,15 +680,15 @@ store.box.get("0d42afa6").move(5, 0)
 
 class: fullscreen stacked
 
-.appear[![patch](patch1.png)]
-.appear[![patch](patch2.png)]
-.appear[![patch](patch3.png)]
-.appear[![patch](patch4.png)]
+.appear[![patch](img/patch1.png)]
+.appear[![patch](img/patch2.png)]
+.appear[![patch](img/patch3.png)]
+.appear[![patch](img/patch4.png)]
 
 ---
 
 .lighten.background[
-    ![frozne](frozen/Disney-Frozen-Movie-kristoff-and-sven-wallpaper.jpg)
+    ![frozne](img/frozen/Disney-Frozen-Movie-kristoff-and-sven-wallpaper.jpg)
 ]
 
 # Actions
@@ -791,7 +791,7 @@ onSocketMessage((data) => {
 ---
 
 .lighten.background[
-    <img src="frozen/frozen3.png" style="max-width:none"/>
+    <img src="img/frozen/frozen3.png" style="max-width:none"/>
 ]
 
 ## References
@@ -877,23 +877,23 @@ store.selection = myFavoriteBox
 A minimally defined,
 
 *snapshot-able*
-.appear[![check](check.jpg)]
+.appear[![check](img/check.jpg)]
 
 *state container*
-.appear[![check](check.jpg)]
+.appear[![check](img/check.jpg)]
 
 with replayable *actions*
-.appear[![check](check.jpg)]
+.appear[![check](img/check.jpg)]
 
 and efficient, *transparent* reactive *derivations*
-.appear[![check](check.jpg)]
+.appear[![check](img/check.jpg)]
 
 .appear[_ ..+ patches, middleware, references, dependency injection.._]
 
 ---
 
 .background[
-    ![frozen](frozen/image_a492ba07.png)
+    ![frozen](img/frozen/image_a492ba07.png)
 ]
 
 ---
@@ -927,7 +927,7 @@ mobx-state-tree actions
 
 
 .background[
-    <img src="frozen/789efe3729df42857ca3fb477fad6626.jpg" style="max-width: 110%" />
+    <img src="img/frozen/789efe3729df42857ca3fb477fad6626.jpg" style="max-width: 110%" />
 ]
 
 ---
@@ -984,7 +984,7 @@ Demo
 
 
 .lighten.background[
-    ![frozen](frozen/wpid-elsa-and-anna-frozen-25421-1920x1080.jpg)
+    ![frozen](img/frozen/wpid-elsa-and-anna-frozen-25421-1920x1080.jpg)
 ]
 
 # mobx-state-tree
