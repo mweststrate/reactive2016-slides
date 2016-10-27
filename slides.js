@@ -1,11 +1,12 @@
 var slideshow = remark.create({
     ratio: '16:9',
     highlightLanguage: 'javascript',
-        navigation: {
+    navigation: {
         scroll: false,
         touch: false,
         click: false
     },
+    highlightStyle: 'monokai'
 });
 slideshow.pause()
 

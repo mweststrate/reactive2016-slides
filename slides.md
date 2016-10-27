@@ -982,19 +982,21 @@ Demo
 
 ---
 
-
 .lighten.background[
     ![frozen](img/frozen/wpid-elsa-and-anna-frozen-25421-1920x1080.jpg)
 ]
 
 # mobx-state-tree
 
-Opinionated, transactional, MobX based state container
-
-----
+.lastslide[
+_Opinionated, transactional,_<br/>_MobX based state container_
 
 .appear[Try mobx-state-tree]
 
-.appear[.. or just apply the patterns]
+.appear[... or just apply the patterns]
 
-.appear[https://egghead.io/courses/mobx-fundamentals]
+.appear[egghead.io/courses/mobx-fundamentals]
+
+.appear[@mweststrate]
+
+]

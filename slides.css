@@ -8,6 +8,11 @@ h1, h2, h3 {
 
 body {
     font-family: 'Open Sans Condensed', sans-serif;
+    color: white;
+}
+
+.remark-slide-content {
+    background-color: black;
 }
 
 h1 {
@@ -53,7 +58,7 @@ hr {
 }
 
 .boring .remark-code {
-    background-color: white;
+    background-color: black;
     padding: 0em 8em !important;
     opacity: 0.7;
 }
@@ -145,5 +150,10 @@ div.background img {
 }
 
 div.lighten {
-    opacity: 0.3 !important;
+    opacity: 0.6 !important;
+}
+
+.lastslide {
+    text-align: right;
+    opacity: 0.99 !important;
 }
