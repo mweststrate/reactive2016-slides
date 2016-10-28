@@ -157,3 +157,18 @@ div.lighten {
     text-align: right;
     opacity: 0.99 !important;
 }
+
+.whitebg {
+    background-color: white !important;
+}
+
+.layer1 {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: 1;
+    height: 681px;
+    width: 1210px;
+    margin-left: 80px;
+    margin-top: 149px;
+}

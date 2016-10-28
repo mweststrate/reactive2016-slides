@@ -3,6 +3,11 @@
 Michel Weststrate - @mweststrate - ReactiveConf 2016
 
 MobX - Mendix
+
+.appear[
+<img src="img/mobx2.png" width="200px" style="margin-right: 200px" />
+<img src="img/mobx.png" width="200px" />
+]
 ---
 
 Developers are too smart
@@ -11,19 +16,17 @@ Developers are too smart
 
 .appear[to have them do stupid adminstrative tasks]
 
-.appear[that can be done way better by computers anyway]
+.appear[(that can be done way better by computers anyway)]
 
 ---
 
-.appear[Manual releases &rarr; Continues Deployment]
+.appear[Manual releases &rarr; Continuous Deployment]
 
 .appear[Manipulating the DOM &rarr; Components + VDOM]
 
 .appear[Managing data flow &rarr; Transparent Reactive Programming]
 
 ---
-
-# The Goal Of MobX
 
 .appear[
 ```javascript
@@ -46,10 +49,7 @@ person.name = "@mweststrate"
 ```
 ]
 
----
-
-# The Goal Of MobX
-
+.layer1[
 .appear[
 ```javascript
 const person = observable({
@@ -61,7 +61,7 @@ const person = observable({
 ```javascript
 const App = observer(({ person }) => <h1>{ person.name }</h1>)
 ```
-].appear[
+
 ```javascript
 ReactDOM.render(<App person={person} />, document.body)
 ```
@@ -71,10 +71,8 @@ person.name = "@mweststrate"
 ```
 
 ]
-
+]
 ---
-
-# Truly Reactive React
 
 The view is a function of the state
 
@@ -84,8 +82,6 @@ The view is a function of the state
 
 ---
 
-# Truly Reactive React
-
 The view is a transformation of the state
 
 ```
@@ -93,9 +89,6 @@ The view is a transformation of the state
 ```
 
 ---
-
-
-# Truly Reactive React
 
 The view is a *live* transformation of the state
 
@@ -106,7 +99,6 @@ mobx.autorun(() => {
 ```
 
 ---
-
 
 # What Happened Next
 
@@ -155,7 +147,7 @@ It uses mutable data :(
 
 ---
 
-## Immutable or Mutable _Data_?
+## Immutable or Mutable Data?
 
 ---
 
@@ -164,7 +156,7 @@ It uses mutable data :(
 ---
 
 .background[
-    ![frozen](img/frozen/Frozen.jpg)
+    ![frozen](img/frozen/frozen.jpg)
 ]
 
 ---
@@ -192,8 +184,8 @@ It uses mutable data :(
 ]
 
 <ol style="clear:none; position: relative; left: -140px; width: 800px;">
-<li>Complex, coupled domains</li>
-<li>Complex calculations</li>
+<li>Excels at complex, coupled domains</li>
+<li>And complex, deep calculations</li>
 <li>Mimimal boilerplate</li>
 <li>Efficient</li>
 <li>Unopinionated</li>
@@ -237,8 +229,6 @@ Demo
 
 ---
 
-# Snapshotting Observable Mutable Data
-
 .boring[
 ```
 const states = []
@@ -263,7 +253,11 @@ autorun(() => {
 
 ---
 
-# Snapshot Problems
+A snapshot is a *live* transformation of the state
+
+---
+
+# Problems
 
 1. .appear[No standardized serialization .appear[(&ldquo;serializr&rdquo; package helps)]]
 2. .appear[Deep serializing state is expensive]
@@ -391,7 +385,7 @@ class TodoStore {
 
 ---
 
-class: fullscreen stacked
+class: fullscreen stacked whitebg
 
 .appear[![snapshot](img/snapshot1.png)]
 .appear[![snapshot](img/snapshot2.png)]
@@ -404,7 +398,7 @@ class: fullscreen stacked
 
 # mobx-state-tree
 
-_opinionated, MobX powered state container_
+_Opinionated, MobX powered state container_
 
 https://github.com/mobxjs/mobx-state-tree
 
@@ -417,23 +411,6 @@ https://github.com/mobxjs/mobx-state-tree
 .appear[models are mutable, observable, rich]
 
 .appear[snapshot: immutable representation of the state of a model]
-
-.appear[snapshots & models are interchangeable]
-
----
-
-class: fullscreen
-
-![tree](img/frozen/trees.jpg)
-
----
-
-class: fullscreen stacked
-
-.appear[![tree](img/tree1.png)]
-.appear[![tree](img/tree2.png)]
-.appear[![tree](img/tree3.png)]
-.appear[![tree](img/tree4.png)]
 
 ---
 
@@ -678,7 +655,7 @@ store.box.get("0d42afa6").move(5, 0)
 ]
 ---
 
-class: fullscreen stacked
+class: fullscreen stacked whitebg
 
 .appear[![patch](img/patch1.png)]
 .appear[![patch](img/patch2.png)]
@@ -692,8 +669,6 @@ class: fullscreen stacked
 ]
 
 # Actions
-
-*snapshots + replayable actions = transactional state*
 
 ---
 
@@ -766,6 +741,10 @@ store.get("ce9131ee").move(23, -8)
 ]
 ---
 
+Demo
+
+---
+
 # Actions & Syncing
 
 ```
@@ -778,6 +757,25 @@ onAction(store, (data, next) => {
 onSocketMessage((data) => {
     applyAction(store, data)
 })
+```
+
+---
+# Actions & Forms
+
+```
+function editTodo(todo) {
+    const todoCopy = clone(todo)
+    const actionLog = []
+
+    onAction(todoCopy, (action, next) => {
+        actionLog.push(action)
+        return next()
+    })
+
+    showEditForm(todoCopy, () => {
+        applyActions(todo, actionLog)
+    })
+}
 ```
 
 ---
@@ -794,7 +792,7 @@ onSocketMessage((data) => {
     <img src="img/frozen/frozen3.png" style="max-width:none"/>
 ]
 
-## References
+# References
 
 ---
 
@@ -839,16 +837,9 @@ const Store = createFactory({
         this.selectionId = value ? value.id : null
     }
 ```
-
 .boring[
 ```
 })
-
-autorun(() => {
-    console.log(store.selection.name)
-})
-
-store.selection = myFavoriteBox
 ```
 ]
 ---
@@ -877,18 +868,18 @@ store.selection = myFavoriteBox
 A minimally defined,
 
 *snapshot-able*
-.appear[![check](img/check.jpg)]
+.appear[&nbsp;&#8730;]
 
 *state container*
-.appear[![check](img/check.jpg)]
+.appear[&nbsp;&#8730;]
 
 with replayable *actions*
-.appear[![check](img/check.jpg)]
+.appear[&nbsp;&#8730;]
 
 and efficient, *transparent* reactive *derivations*
-.appear[![check](img/check.jpg)]
+.appear[&nbsp;&#8730;]
 
-.appear[_ ..+ patches, middleware, references, dependency injection.._]
+.appear[_ & ... patches, middleware, references, dependency injection..._]
 
 ---
 
@@ -945,19 +936,20 @@ const initialState = {
 ]
 
 ```
-const store = BoxesStore(initialState)
+const store = TodoStore(initialState)
 const reduxStore = asReduxStore(store)
-connectReduxDevtools(store)
-```
 
-.boring[
-```
 render(
   <Provider store={reduxStore}>
     <App />
   </Provider>,
   document.getElementById('root')
 )
+```
+
+.boring[
+```
+connectReduxDevtools(store)
 ```
 ]
 
@@ -978,25 +970,75 @@ function asReduxStore(model) {
 
 ---
 
+```
+const Todo = createFactory({
+    text: 'Use mobx-state-tree',
+    completed: false,
+    id: 0
+})
+```
+
+```
+const TodoStore = createFactory({
+  todos: arrayOf(Todo),
+
+  COMPLETE_TODO: action(function ({id}) {
+    const todo = this.findTodoById(id)
+    todo.completed = !todo.completed
+  }),
+```
+
+.boring[
+```
+  findTodoById: function (id) {
+    return this.todos.find(todo => todo.id === id)
+  }
+})
+```
+]
+---
+
 Demo
 
 ---
 
-.lighten.background[
-    ![frozen](img/frozen/wpid-elsa-and-anna-frozen-25421-1920x1080.jpg)
-]
-
-# mobx-state-tree
-
-.lastslide[
-_Opinionated, transactional,_<br/>_MobX based state container_
-
 .appear[Try mobx-state-tree]
 
-.appear[... or just apply the patterns]
+.appear[Transactional state is just reactive transformation away]
 
-.appear[egghead.io/courses/mobx-fundamentals]
-
-.appear[@mweststrate]
-
+.appear[
+    <img src="img/letitgo.jpg" width="450px" style="margin-right: 1000px"/>
 ]
+
+.appear[
+    <img src="img/letitgo.gif" width="450px" style="position: relative; top: -230px; left: 300px;"/>
+]
+
+.appear[
+<div style="position: relative; top: -230px">
+<p>egghead.io/courses/mobx-fundamentals</p>
+<p>@mweststrate</p>
+</div>
+]
+
+---
+
+
+
+---
+
+# What about ELM?
+
+```
+import cool from "my-cool-store"
+
+const app = Elm.Main.embed(myHtmlElement);
+
+app.ports.myPort.subscribe(data => {
+    applySnapshot(cool.part.of.the.state, data)
+})
+
+onSnapshot(cool.part.of.the.state, snapshot => {
+    app.ports.myPort.send(snapshot)
+})
+```

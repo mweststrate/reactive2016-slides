@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "config": {
-    "build": "--output-file slides.html --style slides.css --template template.html --script slides.js  --include-remark slides.md"
+    "build": "--output-file index.html --style slides.css --template template.html --script slides.js  --include-remark slides.md"
   },
   "scripts": {
     "build": "markdown-to-slides $npm_package_config_build",
-    "watch": "gaze \"npm run build\" \"*\" \"!node_modules/**/*\" \"!slides.html\"",
+    "watch": "gaze \"npm run build\" \"*\" \"!node_modules/**/*\" \"!index.html\"",
     "start": "concurrently \"servant -p 3002\" \"npm run watch\""
   },
   "author": "",
