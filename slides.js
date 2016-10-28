@@ -3,7 +3,7 @@ var slideshow = remark.create({
     highlightLanguage: 'javascript',
     navigation: {
         scroll: false,
-        touch: false,
+        touch: true,
         click: false
     },
     highlightStyle: 'monokai'
@@ -22,7 +22,9 @@ function removeClass(node, clazz) {
 
 document.addEventListener('keydown', (event) => {
     const keyName = event.key;
+    console.log(event.key)
     switch (keyName) {
+        case "PageUp":
         case "ArrowLeft":
             const prev = document.querySelectorAll(".remark-visible .appeared")
             if (prev.length)
@@ -35,6 +37,7 @@ document.addEventListener('keydown', (event) => {
                 )
             }
             break
+        case "PageDown":
         case "ArrowRight":
             const next = document.querySelector(".remark-visible .appear")
             if (next)
