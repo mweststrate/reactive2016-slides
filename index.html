@@ -184,14 +184,12 @@ div.lighten {
 		<textarea id="source">
 ## The Quest For Immer Mutable State Management
 
-Michel Weststrate - @mweststrate - ReactiveConf 2016
+Michel Weststrate - @mweststrate
 
 MobX - Mendix
 
-.appear[
-<img src="img/mobx2.png" width="200px" style="margin-right: 200px" />
-<img src="img/mobx.png" width="200px" />
-]
+<img src="img/mobx2.png" width="150px" />
+
 ---
 
 Developers are too smart
@@ -209,6 +207,21 @@ Developers are too smart
 .appear[Manipulating the DOM &rarr; Components + VDOM]
 
 .appear[Managing data flow &rarr; Transparent Reactive Programming]
+
+---
+
+# Contents
+
+1. MobX basics & philosophy
+2. Observable data > Immutable data
+
+---
+
+# MobX
+
+Transparent Reactive Programming Library
+
+Makes state management simple & scalable
 
 ---
 
@@ -284,10 +297,81 @@ mobx.autorun(() => {
 
 ---
 
-# What Happened Next
+Consistency is guaranteed
+
+.appear[Regardless *how* or *when* state is changed]
+
+---
+
+<img src="img/flow_notext.png" width="1200" style="margin-left: -2em">
+
+---
+
+# MobX Core
+
+1. .appear[`observable`<br/> mark data as trackable]
+2. .appear[`autorun` / `observer`<br/> automatically run function if relevant state changed]
+3. .appear[`computed`<br/> derive value, if needed]
+4. .appear[`action`<br/> indicates that state will be changed]
+---
+
+# Mendix / Live Demo
+
+---
+
+State is the only truth
+
+.appear[Actions, derivations, reactions are decoupled]
+
+---
+
+class: fullscreen
+
+<img src="img/ReactNext.png" width="1200" />
+
+---
+
+Separate teams can individually work on separate features
+
+.appear[No need to coordinate actions]
+
+.appear[No need to coordinate data usage]
+
+.appear[State shape is our only contract]
+
+---
+
+# Example: validation rules
+
+```javascript
+function carInvariant(car, rules) {
+    when(
+        () => car.speed > rules.speedLimit,
+        () => car.sendFine()
+    )
+}
+```
+
+---
+class: fullscreen
+
+<img src="img/ReactNext2.png" width="1200" />
+
+---
+
+# MobX so far..
 
 .appear[
-Second most popular state management library.
+Free egghead.io course:<br/>
+http://egghead.io/courses/mobx-fundamentals<br/><br/>
+]
+
+.appear[
+5000+ stars, top 1% on NPM<br/><br/>
+]
+
+.appear[
+Second most popular state management library<br/>
 http://stateofjs.com/2016/statemanagement
 ]
 
