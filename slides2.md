@@ -10,9 +10,9 @@ Michel Weststrate - @mweststrate - ReactiveConf 2016
 
 class: fullscreen
 
-![Reactive2015](reactive2015.jpg)
+![Reactive2015](img/reactive2015.jpg)
 
-.appear[![stars](stars.png)]
+.appear[![stars](img/stars.png)]
 
 ---
 
@@ -29,16 +29,16 @@ http://stateofjs.com/2016/statemanagement
 
 ---
 class: fullscreen
-![state](state1.png)
+![state](img/state1.png)
 ---
 class: fullscreen
-![state](state2.png)
+![state](img/state2.png)
 ---
 class: fullscreen
-![state](state3.png)
+![state](img/state3.png)
 ---
 class: fullscreen
-![state](state4.png)
+![state](img/state4.png)
 
 
 ---
@@ -47,24 +47,24 @@ class: fullscreen
 
 ---
 class: fullscreen
-![vdf](vdf1.png)
+![vdf](img/vdf1.png)
 ---
 class: fullscreen
-![vdf](vdf2.png)
+![vdf](img/vdf2.png)
 ---
 class: fullscreen
-![vdf](vdf3.png)
+![vdf](img/vdf3.png)
 ---
 
 # React + MobX
 
 ---
 class: fullscreen
-![vdf](vdf5.png)
+![vdf](img/vdf5.png)
 
 ---
 class: fullscreen
-![vdf](vdf4.png)
+![vdf](img/vdf4.png)
 
 ---
 
@@ -212,7 +212,7 @@ Let's build something cool
 
 class: fullscreen
 
-![peace](peace.png)
+![peace](img/peace.png)
 
 ---
 
